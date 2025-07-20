@@ -1,5 +1,6 @@
 # 🎯 SSAFY 목표 기억력 게임
 
+[SSAFY 목표 기억력 게임 하러가기](https://gykoh42.github.io/SSAFYCardGame/)
 <table border="1">
   <tr>
     <td align="center"><b>라이트 모드</b></td>
