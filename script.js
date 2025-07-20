@@ -276,8 +276,9 @@
 
         // 카드 클릭 핸들러
         handleCardClick(cardElement) {
-          // 매칭 확인 중이거나 이미 뒤집혔거나 매칭된 카드면 무시
+          // 게임이 시작되지 않았거나, 매칭 확인 중이거나, 이미 뒤집혔거나, 매칭된 카드면 무시
           if (
+            !this.gameStarted ||
             this.isChecking ||
             cardElement.classList.contains("flipped") ||
             cardElement.classList.contains("matched")
