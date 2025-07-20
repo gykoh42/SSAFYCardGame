@@ -224,6 +224,11 @@
         margin-bottom: 32px;
       }
 
+      .game-board.pre-game .card {
+        pointer-events: none;
+        transform: none !important; /* 호버 효과 제거 */
+      }
+
       /* 카드 스타일 */
       .card {
         aspect-ratio: 1; /* 가로세로 비율 1:1 유지 */

@@ -38,12 +38,15 @@
           this.startTime = null; // 게임 시작 시간
           this.timerInterval = null; // 타이머 인터벌 ID
 
+          this.gameBoard = document.getElementById("gameBoard"); // 게임 보드 요소 캐싱
+
           this.initializeGame(); // 게임 초기화
           this.setupEventListeners(); // 이벤트 리스너 설정
         }
 
         // 게임 초기화 메서드
         initializeGame() {
+          this.gameBoard.classList.add("pre-game"); // 게임 시작 전 상태 클래스 추가
           this.createCards(); // 카드 생성
           this.renderCards(); // 카드 렌더링
           this.updateProgress(); // 진행률 업데이트
@@ -178,6 +181,7 @@
                 `;
           startButton.classList.add("pulsing"); // 맥박 애니메이션 추가
 
+          this.gameBoard.classList.remove("pre-game"); // 게임 시작, 카드 활성화
           this.showAllCards(); // 모든 카드 잠시 보여주기
 
           await this.delay(3000); // 3초 대기
@@ -224,6 +228,7 @@
                     게임 시작
                 `;
 
+          this.gameBoard.classList.add("pre-game"); // 게임 리셋 시 카드 비활성화
           this.createCards(); // 카드 재 생성
           this.renderCards(); // 카드 재 렌더링
           this.updateProgress(); // 진행률 초기화
