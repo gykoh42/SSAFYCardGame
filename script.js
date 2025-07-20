@@ -277,7 +277,7 @@ class MemoryGame {
 
   // 카드 클릭 핸들러
   handleCardClick(cardElement) {
-    // 게임이 시작되지 않았거나, 매칭 확인 중이거나, 이미 뒤집혔거나, 매칭된 카드면 무시
+    // 게임이 시작되지 않았거나, 이미 뒤집혔거나, 매칭된 카드거나, 매칭 확인 중이면 무시
     if (
       !this.gameStarted ||
       this.isChecking ||
@@ -294,19 +294,19 @@ class MemoryGame {
     if (this.flippedCards.length === 2) {
       // 두 번째 카드 선택 시, 두 카드 모두 포커스 제거
       this.flippedCards.forEach((card) => card.blur());
-      this.checkMatch(); // 두 장의 카드가 뒤집혔으면 매칭 확인
+      this.isChecking = true;
+      this.checkMatch().then(() => {
+        this.isChecking = false;
+      }); // 두 장의 카드가 뒤집혔으면 매칭 확인
     }
   }
 
   // 카드 매칭 확인 메서드
   async checkMatch() {
-    this.isChecking = true; // 매칭 확인 중 상태로 변경
     const [card1, card2] = this.flippedCards;
 
-    await this.delay(1000); // 1초 대기
-
     if (card1.dataset.value === card2.dataset.value) {
-      // 카드 값이 같으면 매칭 처리
+      // 카드 값이 같으면 곧바로 매칭 처리
       card1.classList.add("matched");
       card2.classList.add("matched");
       // 매칭된 카드 포커스 제거
@@ -319,7 +319,8 @@ class MemoryGame {
         this.showCompletionMessage(); // 모든 쌍을 찾았으면 완료 메시지 표시
       }
     } else {
-      // 카드 값이 다르면 다시 뒤집기
+      // 카드 값이 다르면 0.5초 대기 후 다시 뒤집기
+      await this.delay(500);
       card1.classList.remove("flipped");
       card2.classList.remove("flipped");
       // 뒤집힌 카드 포커스 제거
@@ -328,7 +329,6 @@ class MemoryGame {
     }
 
     this.flippedCards = []; // 뒤집힌 카드 배열 초기화
-    this.isChecking = false; // 매칭 확인 완료
   }
 
   // 게임 완료 메시지 표시 메서드
