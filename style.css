@@ -561,10 +561,8 @@ body {
 }
 
 /* 접근성을 위한 포커스 상태 */
-.card:focus,
-.start-button:focus {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
+.card:focus {
+  outline: none;
 }
 
 /* 다크모드 스타일 */
